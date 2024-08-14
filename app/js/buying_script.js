@@ -1,6 +1,7 @@
-cart_items = []
-items_array = []
+var cart_items = []
+var items_array = []
 var running_total = 0
+var names_array = []
 
 fetch(`http://127.0.0.1:8787/buying_page`)
   .then(response => response.json())
@@ -51,7 +52,6 @@ fetch(`http://127.0.0.1:8787/buying_page`)
   })
   .catch(error => console.error('Error:', error));
 
-
 function addToCart(ProductID, ProductName) {
   var name_index = cart_items.findIndex((element) => element == ProductName);
   if (name_index == -1) {
@@ -96,17 +96,14 @@ function addToCart(ProductID, ProductName) {
   document.getElementById("cart_price").innerHTML = running_total
 }
 
-function add_to_tab() {
-  adding_data("Josh", running_total)
-}
-
-async function adding_data(userName, amount) {
+async function add_to_tab() {
+  var username = document.getElementById("person_selector").value
   // Create URL-encoded form data
   const formData = new URLSearchParams();
-  formData.append('name', userName);
-  formData.append('amount', amount);
+  formData.append('name', username);
+  formData.append('amount', running_total);
 
-  const response = await fetch('http://127.0.0.1:8787/add_info', {
+  const response = await fetch('http://127.0.0.1:8787/add_cart', {
     method: 'POST',
     body: formData
   });
@@ -117,16 +114,9 @@ async function adding_data(userName, amount) {
   } else {
     console.error('Error:', response.statusText);
   }
-}
-  
-  
-  // async function insertData() {
-  //   // Make an HTTP GET request to your Python Worker
-  //   fetch('http://127.0.0.1:8787/add_info')
-  // }
 
-  // // Call the function to insert data
-  // insertData();
+  clear_cart()
+}
 
 
 function clear_cart() {
@@ -136,22 +126,25 @@ function clear_cart() {
 }
 
 
+fetch(`http://127.0.0.1:8787/list_names`)
+  .then(response => response.json())
+  .then(data => {
+    results = data["results"]
+    console.log(results);
 
+    for (var i = 0; i < results.length; i++) {
+      person_name = results[i]["PersonName"]
+      names_array.push(person_name)
 
-// function aFunction() {
-//   console.log("BEER ADDED!!!")
-//   console.log(items_bought)
-// }
+      selector_node = document.createElement("option");
+      selector_node.value = (person_name)
+      const selector_textnode = document.createTextNode(person_name)
+      selector_node.appendChild(selector_textnode)
+      document.getElementById("person_selector").appendChild(selector_node)
 
-// console.log(items_bought.findIndex((element) => element == "Beer"))
+    }
 
-// var ProductName = "Beer"
-// var name_index = cart_items.findIndex((element) => element == ProductName);
-//   if (name_index == -1) {
-//     console.log("not_found")
-//     cart_items.push(ProductName, 0)
-//   } else {
-//     name_index
-//     cart_items[(name_index + 1)] += 1
-//   }
-//   console.log(cart_items)
+    console.log(names_array)
+
+  })
+  .catch(error => console.error('Error:', error));

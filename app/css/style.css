@@ -10,7 +10,7 @@ body, html{
 
 nav{
     width: 100vw;
-    background-color: pink;
+    background-color: navy;
     padding: 10px;
     font-size: 2em;
     color: white;
@@ -78,12 +78,12 @@ table>*>*, table>*{
 
 .cart_list>*{
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
 }
 
 #cart_footer_header{
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
 }
 
 button{
@@ -94,12 +94,24 @@ button{
 }
 
 #clear_button{
-    width: 50%;
+    width: 75%;
 }
 
 .product_card{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 5px;
 
+}
+
+#add_button{
+    width: 75%;
+}
+
+nav{
+    display: flex;
+}
+
+select{
+    margin-left: auto;
 }

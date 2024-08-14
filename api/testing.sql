@@ -10,10 +10,10 @@
 -- INSERT INTO Products (ProductName, ProductPrice)
 -- VALUES ("Water", 0)
 
-SELECT * FROM Tabs
+-- SELECT * FROM Products
 
 -- DROP TABLE Tab
 
--- DELETE FROM Tabs WHERE PersonID BETWEEN 5 AND 53;
+DELETE FROM Products WHERE ProductName = "Rizz"
 
 -- UPDATE Tabs SET PersonTab = PersonTab + 10 WHERE PersonName = "Josh"

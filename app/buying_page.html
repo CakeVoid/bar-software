@@ -10,7 +10,10 @@
 </head>
 
 <body>
-    <nav>Hello This is the header</nav>
+    <nav>
+        <div>Sales</div>
+        <select id="person_selector"></select>
+    </nav>
     <div class="content">
         <div id="table_tab" class="product_display"></div>
         <div class="cart_side">
@@ -22,7 +25,7 @@
             <div id="cart_list" class="cart_list"></div>
             <div id="cart_footer_header">
                 <button onclick="clear_cart()" id="clear_button">Clear Cart</button>
-                <button onclick="add_to_tab()">Add to Tab</button>
+                <button onclick="add_to_tab()" id="add_button">Add to Tab</button>
                 <div id="cart_price">0</div>
             </div>
             
