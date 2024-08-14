@@ -10,7 +10,7 @@ body, html{
 
 nav{
     width: 100vw;
-    background-color: grey;
+    background-color: pink;
     padding: 10px;
     font-size: 2em;
     color: white;
@@ -29,6 +29,77 @@ nav{
     padding: 10px;
 }
 
+/* table{
+    border: 1px solid black;
+} */
+
+table>*>*, table>*{
+    padding:10px;
+    border: 1px solid black;
+}
+
+.table_tab{
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 50%;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+}
+
+.product_display{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+}
+
+.product_display>*{
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.cart_side{
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    display: grid;
+    row-gap: 10px;
+    grid-template-rows:auto 1fr auto;
+}
+
+.content{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 10px;
+    padding: 10px;
+}
+
+.cart_list>*{
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+}
+
+#cart_footer_header{
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+}
+
 button{
-    style
+    background-color: green;
+    color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+#clear_button{
+    width: 50%;
+}
+
+.product_card{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+
 }

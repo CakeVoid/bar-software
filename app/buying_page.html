@@ -1,46 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/script.js"></script>
+    <script src="./js/buying_script.js"></script>
 </head>
+
 <body>
     <nav>Hello This is the header</nav>
-    <div class="grid_body">
-        <div class="product">Hi1
-            <button>
-                Hello
-            </button>
-        </div>
-        <div class="product">Hi2
-            <button>
-                Hello
-            </button>
-        </div>
-        <div class="product">Hi3
-            <button>
-                Hello
-            </button>
-        </div>
-        <div class="product">Hi4
-            <button>
-                Hello
-            </button>
-        </div>
-        <div class="product">Hi5
-            <button>
-                Hello
-            </button>
-        </div>
-        <div class="product">Hi6
-            <button>
-                Hello
-            </button>
+    <div class="content">
+        <div id="table_tab" class="product_display"></div>
+        <div class="cart_side">
+            <div id="cart_footer_header">
+                <div>Product</div>
+                <div>Quantity</div>
+                <div>Price</div>
+            </div>
+            <div id="cart_list" class="cart_list"></div>
+            <div id="cart_footer_header">
+                <button onclick="clear_cart()" id="clear_button">Clear Cart</button>
+                <button onclick="add_to_tab()">Add to Tab</button>
+                <div id="cart_price">0</div>
+            </div>
+            
         </div>
     </div>
-
 </body>
+
 </html>
