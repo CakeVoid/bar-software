@@ -101,12 +101,14 @@ function add_to_tab() {
 }
 
 async function adding_data(userName, amount) {
+  // Create URL-encoded form data
+  const formData = new URLSearchParams();
+  formData.append('name', userName);
+  formData.append('amount', amount);
+
   const response = await fetch('http://127.0.0.1:8787/add_info', {
     method: 'POST',
-    body: JSON.stringify({ name: userName, amount: amount })
-    // headers: {
-    //   'Content-Type': 'application/json',
-    // },
+    body: formData
   });
 
   if (response.ok) {
@@ -115,7 +117,7 @@ async function adding_data(userName, amount) {
   } else {
     console.error('Error:', response.statusText);
   }
-  
+}
   
   
   // async function insertData() {
@@ -125,7 +127,7 @@ async function adding_data(userName, amount) {
 
   // // Call the function to insert data
   // insertData();
-}
+
 
 function clear_cart() {
   document.getElementById("cart_list").innerHTML = "";

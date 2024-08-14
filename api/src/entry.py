@@ -1,6 +1,5 @@
 from js import Response
-from urllib.parse import urlparse
-import json
+from urllib.parse import urlparse, parse_qs
 
 async def on_fetch(request, env):
     url = urlparse(request.url)
@@ -29,74 +28,113 @@ async def on_fetch(request, env):
 
 async def handle_request(request, env):
     try:
-        print("Try thing")
-
-
         if request.method == "OPTIONS":
-            print("Handling OPTIONS request")
+            r = Response("")
             r.headers.append("Access-Control-Allow-Origin", "*")
-            # r.headers.append("Content-Type", "application/json")
-            # r.headers.append("Access-Control-Allow-Headers", "Content-Type")
-
-            # r.headers.append("Access-Control-Allow-Headers", "content-type")
-            # # Handle preflight requests
-            # headers = {
-            #     "Access-Control-Allow-Origin": "*",
-            #     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            #     "Access-Control-Allow-Headers": "Content-Type"
-            # }
-
+            r.headers.append("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+            r.headers.append("Access-Control-Allow-Headers", "Content-Type")
             return r
-        print("Hello")
 
-        print("Reading JSON data")
-        # data = await request.json()
+        print("Reading form data")
 
+        # Read the request body as text
+        body = await request.text()
+        # Parse form data
+        data = parse_qs(body)
+        name_value = data.get("name", [""])[0]
+        amount_value_str = data.get("amount", ["0"])[0]
+
+        print(f"Raw Name: {name_value}, Raw Amount: {amount_value_str}")
+
+        # Convert amount to an integer
         try:
-            data = await request.json()
-            print("Data received:", json.dumps(data, indent=2))
-        except Exception as json_error:
-            print(f"Error reading JSON data: {json_error}")
-            r = Response.json({"error": "Failed to parse JSON"}, status=400)
-            return r.append.headers.append("Access-Control-Allow-Origin", "*")
+            amount_value = int(amount_value_str)
+        except ValueError:
+            print(f"Invalid amount: {amount_value_str}")
+            amount_value = 0
 
+        print(f"Parsed Name: {name_value}, Parsed Amount: {amount_value}")
 
-        print("did the await")
-        print("Data received:", data.dumps(data, indent=2))
+        if name_value == "" or amount_value == 0:
+            print("Error: Missing name or invalid amount")
+            raise ValueError("Name or amount not provided correctly")
 
-        print("JSON data read successfully")
-        print(f"Data received: {data}")
-
-
-        data = await request.json()
-        name_value = data.get("name")
-        amount_value = data.get("amount")
-        
-
-
-        print(f"Name: {name_value}, Amount: {amount_value}")  # Debugging line
-        
         # Adjust SQL statement to use variables
         sql = 'UPDATE Tabs SET PersonTab = PersonTab + ? WHERE PersonName = ?'
         stmnt = env.DB.prepare(sql)
         await stmnt.bind(amount_value, name_value).run()
-        
+
         results = {"message": "Data updated successfully", "status": 200}
-        
-        headers = {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type"
-        }
-        resp = Response.json(results, headers=headers)
+
+        resp = Response.json(results)
         resp.headers.append("Access-Control-Allow-Origin", "*")
-        # resp.headers.append("Access-Control-Allow-Headers", "content-type")
+        resp.headers.append("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+        resp.headers.append("Access-Control-Allow-Headers", "Content-Type")
         return resp
+
     except Exception as e:
         error_response = {"error": str(e), "status": 500}
         resp = Response.json(error_response)
         resp.headers.append("Access-Control-Allow-Origin", "*")
         return resp
+
+
+
+
+
+# async def handle_request(request, env):
+#     try:
+#         print("Try thing")
+
+
+#         if request.method == "OPTIONS":
+#             print("Handling OPTIONS request")
+#             r.headers.append("Access-Control-Allow-Origin", "*")
+#             # r.headers.append("Content-Type", "application/json")
+#             # r.headers.append("Access-Control-Allow-Headers", "Content-Type")
+
+#             # r.headers.append("Access-Control-Allow-Headers", "content-type")
+#             # # Handle preflight requests
+#             # headers = {
+#             #     "Access-Control-Allow-Origin": "*",
+#             #     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+#             #     "Access-Control-Allow-Headers": "Content-Type"
+#             # }
+
+#             return r
+#         print("Hello")
+
+#         print("Reading JSON data")
+#         # data = await request.json()
+#         data = await request.json()
+#         name_value = data.name
+#         amount_value = data.get("amount")
+        
+
+
+#         print(f"Name: {name_value}, Amount: {amount_value}")  # Debugging line
+        
+#         # Adjust SQL statement to use variables
+#         sql = 'UPDATE Tabs SET PersonTab = PersonTab + ? WHERE PersonName = ?'
+#         stmnt = env.DB.prepare(sql)
+#         await stmnt.bind(amount_value, name_value).run()
+        
+#         results = {"message": "Data updated successfully", "status": 200}
+        
+#         headers = {
+#             "Access-Control-Allow-Origin": "*",
+#             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+#             "Access-Control-Allow-Headers": "Content-Type"
+#         }
+#         resp = Response.json(results, headers=headers)
+#         resp.headers.append("Access-Control-Allow-Origin", "*")
+#         # resp.headers.append("Access-Control-Allow-Headers", "content-type")
+#         return resp
+#     except Exception as e:
+#         error_response = {"error": str(e), "status": 500}
+#         resp = Response.json(error_response)
+#         resp.headers.append("Access-Control-Allow-Origin", "*")
+#         return resp
 
 
 
