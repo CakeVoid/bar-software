@@ -24,4 +24,4 @@
 
 -- ALTER TABLE Products ADD COLUMN img_src varchar(255);
 
--- UPDATE Products SET img_src  = "././images/bread.svg" WHERE ProductName = "Chips"
+-- UPDATE Products SET img_src  = "././images/beer.jpg" WHERE ProductName = "Beer"
