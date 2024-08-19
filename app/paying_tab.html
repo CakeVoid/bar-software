@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Product</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/paying_tab.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="nav_title">Pay Tab</div>
+        <a href="./index.html">Tabs</a>
+        <a href="./buying_page.html">Sales</a>
+        <a href="./new_product.html">New Product</a>
+        <a href="./new_person.html">New Person</a>
+        <a href="./paying_tab.html">Pay Tab</a>
+    </nav>
+    <div class="centre_50 blue_box single_column_grid centre_children_in_grid">
+        <select id="person_selector"></select>
+        <button onclick="see_tab()">See Tab</button>
+        <div id="display_tab">$...</div>
+        <input type="number" id="amount_off_tab">
+        <button onclick="pay_tab()">Pay Tab</button>
+    </div>
+</body>
+
+</html>

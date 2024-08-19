@@ -7,7 +7,6 @@ fetch(`http://127.0.0.1:8787/buying_page`)
   .then(response => response.json())
   .then(data => {
     results = data["results"]
-    console.log(results);
 
     for (var i = 0; i < results.length; i++) {
       const node = document.createElement("div");
@@ -27,8 +26,27 @@ fetch(`http://127.0.0.1:8787/buying_page`)
       node2.appendChild(textnode2);
       document.getElementById(row_name).appendChild(node2);
 
+
+      const img_src = results[i]["img_src"]
+      console.log(img_src)
+      if (!!img_src) {
+
+
+        document.getElementById(row_name).appendChild(document.createElement("div"));
+        document.getElementById(row_name).appendChild(document.createElement("div"));
+
+        const node4 = document.createElement("img");
+        node4.src = img_src
+        document.getElementById(row_name).appendChild(node4)
+
+
+        document.getElementById(row_name).appendChild(document.createElement("div"));
+        document.getElementById(row_name).appendChild(document.createElement("div"));
+      }
+
+
       const node3 = document.createElement("div");
-      const textnode3 = document.createTextNode(results[i]["ProductPrice"]);
+      const textnode3 = document.createTextNode("$" + results[i]["ProductPrice"]);
       node3.appendChild(textnode3);
       document.getElementById(row_name).appendChild(node3);
 
@@ -36,6 +54,8 @@ fetch(`http://127.0.0.1:8787/buying_page`)
       const purchase_button_text = document.createTextNode("Buy");
       var button_id = "add_" + results[i]["ProductName"]
       purchase_button.id = button_id
+      
+      purchase_button.className = "purchase_button"
       purchase_button.appendChild(purchase_button_text);
       document.getElementById(row_name).appendChild(purchase_button);
 
@@ -65,9 +85,6 @@ function addToCart(ProductID, ProductName) {
 
   for (var i = 0; i < (cart_items.length); i++) {
     if (i % 2 == 0) {
-      console.log("STUFF IS RUNNING!!!")
-      console.log("Running total = " + running_total)
-
       node = document.createElement("div");
       node.id = ("cart_row_" + i)
       document.getElementById("cart_list").appendChild(node)
@@ -84,16 +101,16 @@ function addToCart(ProductID, ProductName) {
 
       const node3 = document.createElement("div");
       var name_index = (items_array.findIndex((element) => element == cart_items[i])) + 1
-      const textnode3 = document.createTextNode(items_array[name_index])
+      const textnode3 = document.createTextNode("$" + items_array[name_index])
       node3.appendChild(textnode3)
       document.getElementById("cart_row_" + i).appendChild(node3);
 
       this_item = (items_array[name_index]) * (cart_items[(i + 1)])
-      running_total = running_total + this_item
+      running_total = Math.round((running_total + this_item) * 100) / 100
     }
 
   }
-  document.getElementById("cart_price").innerHTML = running_total
+  document.getElementById("cart_price").innerHTML = "$" + running_total
 }
 
 async function add_to_tab() {
@@ -122,7 +139,7 @@ async function add_to_tab() {
 function clear_cart() {
   document.getElementById("cart_list").innerHTML = "";
   cart_items = []
-  document.getElementById("cart_price").innerHTML = "0";
+  document.getElementById("cart_price").innerHTML = "$0";
 }
 
 
@@ -143,8 +160,6 @@ fetch(`http://127.0.0.1:8787/list_names`)
       document.getElementById("person_selector").appendChild(selector_node)
 
     }
-
-    console.log(names_array)
 
   })
   .catch(error => console.error('Error:', error));

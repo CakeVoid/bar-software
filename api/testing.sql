@@ -14,6 +14,14 @@
 
 -- DROP TABLE Tab
 
-DELETE FROM Products WHERE ProductName = "Rizz"
+-- DELETE FROM Products WHERE ProductName = "Vodka"
 
--- UPDATE Tabs SET PersonTab = PersonTab + 10 WHERE PersonName = "Josh"
+-- UPDATE Tabs SET PersonTab = 0
+
+
+-- ALTER TABLE Tabs DROP COLUMN image_src
+
+
+-- ALTER TABLE Products ADD COLUMN img_src varchar(255);
+
+-- UPDATE Products SET img_src  = "././images/bread.svg" WHERE ProductName = "Chips"

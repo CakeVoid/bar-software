@@ -20,18 +20,9 @@ fetch(`http://127.0.0.1:8787`)
       document.getElementById("table_tab").appendChild(node2);
 
       const node3 = document.createElement("div");
-      const textnode3 = document.createTextNode(results[i]["PersonTab"]);
+      const textnode3 = document.createTextNode("$" + results[i]["PersonTab"]);
       node3.appendChild(textnode3);
       document.getElementById("table_tab").appendChild(node3);
     }
   })
   .catch(error => console.error('Error:', error));
-
-// async function insertData() {
-
-//   // Make an HTTP GET request to your Python Worker
-//   fetch('http://127.0.0.1:8787/add_info')
-// }
-
-// // Call the function to insert data
-// insertData();

@@ -41,11 +41,15 @@ table>*>*, table>*{
 .table_tab{
     border: 2px solid black;
     border-radius: 10px;
-    width: 50%;
     padding: 10px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 2fr 2fr;
     gap: 5px;
+    background-color: navy;
+}
+
+.table_tab>*{
+    color: white;
 }
 
 .product_display{
@@ -110,8 +114,90 @@ button{
 
 nav{
     display: flex;
+
 }
 
-select{
+.select_nav{
     margin-left: auto;
+}
+
+a, a:visited{
+    color: white;
+    margin-left: 20px;
+}
+
+.nav_title{
+    width: 200px;
+}
+
+.centre_50{
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 10px;
+}
+
+.new_product_form{
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: navy;
+}
+
+.new_product_form>*{
+    width: 50%;
+    margin-left: 25%;
+}
+
+.white_heading{
+    color: white;
+    font-size: 2em;
+}
+
+.input_field{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.input_label{
+    color: white;
+}
+
+.blue_box{
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: navy;
+    color: white;
+}
+
+.single_column_grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+}
+
+.centre_children_in_grid>*{
+    display: flex;
+    align-self: center;
+    justify-self: center;
+}
+
+#amount_off_tab{
+    text-align: center;
+}
+
+.purchase_button{
+    margin-bottom: auto;
+}
+
+.product_card{
+    height: auto;
+}
+
+img{
+    width: 75%;
 }
